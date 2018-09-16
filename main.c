@@ -43,7 +43,7 @@ int main() {
 //   printf("Data: %s\n", data);
 //   // Echo
 //   smw_unix_socket_send_data(socket, dataSize, data);
-//   smw_unix_server_socket_close(socket);
+//   smw_unix_socket_close(socket);
 // }
 
 // void onClose(SMWUnixSocket *socket) {

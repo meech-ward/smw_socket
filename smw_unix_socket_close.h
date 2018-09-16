@@ -8,6 +8,6 @@ typedef enum {
   SMWUnixServerSocketCloseErrorClosing
 } SMWUnixServerSocketCloseError;
 
-SMWUnixServerSocketCloseError smw_unix_server_socket_close(SMWUnixSocket *socket);
+SMWUnixServerSocketCloseError smw_unix_socket_close(SMWUnixSocket *socket);
 
 #endif
