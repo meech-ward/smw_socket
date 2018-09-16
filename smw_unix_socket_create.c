@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "smw_unix_server_socket_create.h"
+#include "smw_unix_socket_create.h"
 
 static const int backlog = 5;
 
@@ -44,5 +44,20 @@ SMWUnixServerSocketCreateError smw_unix_server_socket_create(const char *filePat
   *s = socket;
 
   return SMWUnixServerSocketCreateErrorNone;
+}
+
+SMWUnixClientSocketCreateError smw_unix_client_socket_create(const char *filePath, SMWUnixSocket **s) {
+  SMWUnixSocket *socket = smw_unix_socket_malloc();
+
+  socket->_fileDescriptor = smw_socket_file_descriptor();
+  if (socket->_fileDescriptor == -1) {
+    return SMWUnixClientSocketCreateErrorCreatingSocket;
+  }
+
+  smw_setup_socket_address(socket->_unixSocket, filePath);
+  
+  *s = socket;
+
+  return SMWUnixClientSocketCreateErrorNone;
 }
 

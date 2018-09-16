@@ -13,4 +13,14 @@ typedef enum {
 
 SMWUnixServerSocketCreateError smw_unix_server_socket_create(const char *filePath, SMWUnixSocket **s);
 
+typedef enum {
+  SMWUnixClientSocketCreateErrorNone = 0,
+  SMWUnixClientSocketCreateErrorCreatingSocket,
+  SMWUnixClientSocketCreateErrorBinding,
+  SMWUnixClientSocketCreateErrorAllocatingSocket,
+  SMWUnixClientSocketCreateErrorListening
+} SMWUnixClientSocketCreateError;
+
+SMWUnixClientSocketCreateError smw_unix_client_socket_create(const char *filePath, SMWUnixSocket **s);
+
 #endif
