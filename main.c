@@ -12,6 +12,7 @@ void onData(SMWUnixServerSocket *socket, int dataSize, char *data) {
   printf("Data: %s\n", data);
   // Echo
   smw_unix_server_socket_send_data(socket, dataSize, data);
+  smw_unix_server_socket_close(socket);
 }
 
 void onClose(SMWUnixServerSocket *socket) {
@@ -27,8 +28,6 @@ int main() {
   }
 
   smw_unix_server_socket_accept_connections(socket, 100, onConnect, onData, onClose);
-
-  printf("hello\n");
 
   return 0;
 }
