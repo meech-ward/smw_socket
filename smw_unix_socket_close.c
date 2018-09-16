@@ -3,9 +3,9 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "smw_unix_server_socket_close.h"
+#include "smw_unix_socket_close.h"
 
-SMWUnixServerSocketCloseError smw_unix_server_socket_close(SMWUnixSocket *socket) {
+SMWUnixServerSocketCloseError smw_unix_socket_close(SMWUnixSocket *socket) {
   if (close(socket->_fileDescriptor) == -1) {
     return SMWUnixServerSocketCloseErrorClosing;
   }
