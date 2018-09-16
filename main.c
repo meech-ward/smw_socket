@@ -8,8 +8,10 @@ void onConnect(SMWUnixServerSocket *socket) {
   printf("Accepted a connection\n");
 }
 
-void onData(SMWUnixServerSocket *socket, char *data) {
+void onData(SMWUnixServerSocket *socket, int dataSize, char *data) {
   printf("Data: %s\n", data);
+  // Echo
+  smw_unix_server_socket_send_data(socket, dataSize, data);
 }
 
 void onClose(SMWUnixServerSocket *socket) {

@@ -5,21 +5,15 @@
 
 typedef enum {
   SMWUnixServerSocketConnectErrorNone = 0,
-  SMWUnixServerSocketConnectErrorBadIncommingSocket
+  SMWUnixServerSocketConnectErrorBadIncommingSocket,
+  SMWUnixServerSocketConnectErrorBadData
 } SMWUnixServerSocketConnectError;
 
 SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
   SMWUnixServerSocket *socket, 
   int bufferSize,
   void (*connect)(SMWUnixServerSocket *socket), 
-  void (*data)(SMWUnixServerSocket *socket, char *data), 
-  void (*close)(SMWUnixServerSocket *socket));
-
-  SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
-  SMWUnixServerSocket *socket, 
-  int bufferSize,
-  void (*connect)(SMWUnixServerSocket *socket), 
-  void (*data)(SMWUnixServerSocket *socket, char *data), 
+  void (*data)(SMWUnixServerSocket *socket, int dataSize, char *data), 
   void (*close)(SMWUnixServerSocket *socket));
 
 #endif

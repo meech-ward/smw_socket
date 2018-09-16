@@ -8,13 +8,13 @@
 int handle_data_from_incomming_socket(
   SMWUnixServerSocket *incommingSocket, 
   int bufferSize, 
-  void (*data)(SMWUnixServerSocket *socket, char *data)) {
+  void (*data)(SMWUnixServerSocket *socket, int dataSize, char *data)) {
 
   char buffer[bufferSize];
   ssize_t numRead = 0;
   ssize_t numReadTotal = 0;
   while ((numRead = read(incommingSocket->_fileDescriptor, buffer, bufferSize)) > 0) {
-    data(incommingSocket, buffer);
+    data(incommingSocket, numRead, buffer);
   }
   
   if (numRead == -1) {
@@ -33,7 +33,7 @@ SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
   SMWUnixServerSocket *socket, 
   int bufferSize,
   void (*connect)(SMWUnixServerSocket *socket), 
-  void (*data)(SMWUnixServerSocket *socket, char *data), 
+  void (*data)(SMWUnixServerSocket *socket, int dataSize, char *data), 
   void (*close)(SMWUnixServerSocket *socket)) {
 
   // Handle client connections iteratively
@@ -48,9 +48,12 @@ SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
     }
 
     connect(incommingSocket);
-    handle_data_from_incomming_socket(incommingSocket, bufferSize, data);
+    int handleDataResult = handle_data_from_incomming_socket(incommingSocket, bufferSize, data);
     close(incommingSocket);
     smw_unix_server_socket_free(incommingSocket);
+    if (handleDataResult < 0) {
+      return SMWUnixServerSocketConnectErrorBadData;
+    }
   }
 
   return SMWUnixServerSocketConnectErrorNone;
