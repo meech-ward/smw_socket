@@ -3,7 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "smw_unix_server_socket_connect.h"
+#include "smw_unix_socket_connect.h"
 
 int handle_data_from_incomming_socket(
   SMWUnixSocket *incommingSocket, 
@@ -32,9 +32,9 @@ int handle_data_from_incomming_socket(
 SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
   SMWUnixSocket *socket, 
   int bufferSize,
-  void (*connect)(SMWUnixSocket *socket), 
-  void (*data)(SMWUnixSocket *socket, int dataSize, char *data), 
-  void (*close)(SMWUnixSocket *socket)) {
+  void (*onConnect)(SMWUnixSocket *socket), 
+  void (*onData)(SMWUnixSocket *socket, int dataSize, char *data), 
+  void (*onClose)(SMWUnixSocket *socket)) {
 
   // Handle client connections iteratively
   // Blocking!
@@ -47,9 +47,9 @@ SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
       return SMWUnixServerSocketConnectErrorBadIncommingSocket;
     }
 
-    connect(incommingSocket);
-    int handleDataResult = handle_data_from_incomming_socket(incommingSocket, bufferSize, data);
-    close(incommingSocket);
+    onConnect(incommingSocket);
+    int handleDataResult = handle_data_from_incomming_socket(incommingSocket, bufferSize, onData);
+    onClose(incommingSocket);
     smw_unix_socket_free(incommingSocket);
     if (handleDataResult < 0) {
       return SMWUnixServerSocketConnectErrorBadData;
@@ -60,3 +60,25 @@ SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
 
 }
 
+
+SMWUnixClientSocketConnectError smw_unix_client_socket_connect(
+  SMWUnixSocket *socket,
+  int bufferSize,
+  void (*onConnect)(SMWUnixSocket *socket), 
+  void (*onData)(SMWUnixSocket *socket, int dataSize, char *data), 
+  void (*onClose)(SMWUnixSocket *socket)) {
+
+  if (connect(socket->_fileDescriptor, (struct sockaddr *) socket->_unixSocket, sizeof(SocketAddress)) == -1) {
+    return SMWUnixClientSocketConnectErrorConnecting;
+  }
+
+  onConnect(socket);
+  int handleDataResult = handle_data_from_incomming_socket(socket, bufferSize, onData);
+  onClose(socket);
+  smw_unix_socket_free(socket);
+  if (handleDataResult < 0) {
+    return SMWUnixClientSocketConnectErrorBadData;
+  }
+
+  return SMWUnixClientSocketConnectErrorNone;
+}
