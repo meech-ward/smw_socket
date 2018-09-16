@@ -6,9 +6,9 @@
 #include "smw_unix_server_socket_connect.h"
 
 int handle_data_from_incomming_socket(
-  SMWUnixServerSocket *incommingSocket, 
+  SMWUnixSocket *incommingSocket, 
   int bufferSize, 
-  void (*data)(SMWUnixServerSocket *socket, int dataSize, char *data)) {
+  void (*data)(SMWUnixSocket *socket, int dataSize, char *data)) {
 
   char buffer[bufferSize];
   ssize_t numRead = 0;
@@ -30,16 +30,16 @@ int handle_data_from_incomming_socket(
 }
 
 SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
-  SMWUnixServerSocket *socket, 
+  SMWUnixSocket *socket, 
   int bufferSize,
-  void (*connect)(SMWUnixServerSocket *socket), 
-  void (*data)(SMWUnixServerSocket *socket, int dataSize, char *data), 
-  void (*close)(SMWUnixServerSocket *socket)) {
+  void (*connect)(SMWUnixSocket *socket), 
+  void (*data)(SMWUnixSocket *socket, int dataSize, char *data), 
+  void (*close)(SMWUnixSocket *socket)) {
 
   // Handle client connections iteratively
   // Blocking!
   for (;;) {
-    SMWUnixServerSocket *incommingSocket = smw_unix_server_socket_malloc();
+    SMWUnixSocket *incommingSocket = smw_unix_socket_malloc();
 
     incommingSocket->_fileDescriptor = accept(socket->_fileDescriptor, NULL, NULL);
 
@@ -50,7 +50,7 @@ SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
     connect(incommingSocket);
     int handleDataResult = handle_data_from_incomming_socket(incommingSocket, bufferSize, data);
     close(incommingSocket);
-    smw_unix_server_socket_free(incommingSocket);
+    smw_unix_socket_free(incommingSocket);
     if (handleDataResult < 0) {
       return SMWUnixServerSocketConnectErrorBadData;
     }

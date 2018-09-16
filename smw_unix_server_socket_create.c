@@ -23,8 +23,8 @@ int smw_bind_socket(int fileDescriptor, SocketAddress *socketAddress) {
   return bind(fileDescriptor, (struct sockaddr *) socketAddress, sizeof(SocketAddress));
 }
 
-SMWUnixServerSocketCreateError smw_unix_server_socket_create(const char *filePath, SMWUnixServerSocket **s) {
-  SMWUnixServerSocket *socket = smw_unix_server_socket_malloc();
+SMWUnixServerSocketCreateError smw_unix_server_socket_create(const char *filePath, SMWUnixSocket **s) {
+  SMWUnixSocket *socket = smw_unix_socket_malloc();
 
   socket->_fileDescriptor = smw_socket_file_descriptor();
   if (socket->_fileDescriptor == -1) {

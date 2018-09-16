@@ -1,7 +1,7 @@
 #ifndef __smw_unix_server_socket_create_h__
 #define __smw_unix_server_socket_create_h__
 
-#include "smw_unix_server_socket.h"
+#include "smw_unix_socket.h"
 
 typedef enum {
   SMWUnixServerSocketCreateErrorNone = 0,
@@ -11,6 +11,6 @@ typedef enum {
   SMWUnixServerSocketCreateErrorListening
 } SMWUnixServerSocketCreateError;
 
-SMWUnixServerSocketCreateError smw_unix_server_socket_create(const char *filePath, SMWUnixServerSocket **s);
+SMWUnixServerSocketCreateError smw_unix_server_socket_create(const char *filePath, SMWUnixSocket **s);
 
 #endif

@@ -6,7 +6,7 @@
 #include "smw_unix_server_socket_send_data.h"
 
 SMWUnixServerSocketSendDataError smw_unix_server_socket_send_data(
-  SMWUnixServerSocket *socket, 
+  SMWUnixSocket *socket, 
   int dataSize,
   char *data) {
 

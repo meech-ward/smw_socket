@@ -4,23 +4,23 @@
 
 #include "smw_unix_server.h"
 
-void onConnect(SMWUnixServerSocket *socket) {
+void onConnect(SMWUnixSocket *socket) {
   printf("Accepted a connection\n");
 }
 
-void onData(SMWUnixServerSocket *socket, int dataSize, char *data) {
+void onData(SMWUnixSocket *socket, int dataSize, char *data) {
   printf("Data: %s\n", data);
   // Echo
   smw_unix_server_socket_send_data(socket, dataSize, data);
   smw_unix_server_socket_close(socket);
 }
 
-void onClose(SMWUnixServerSocket *socket) {
+void onClose(SMWUnixSocket *socket) {
   printf("Connection Closed\n");
 }
 
 int main() {
-  SMWUnixServerSocket *socket;
+  SMWUnixSocket *socket;
   SMWUnixServerSocketCreateError error = smw_unix_server_socket_create("/tmp/sam6", &socket);
   if (error != SMWUnixServerSocketConnectErrorNone) {
     printf("Error %i %i", error, errno);
