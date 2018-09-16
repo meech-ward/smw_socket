@@ -18,13 +18,13 @@ void onClose(SMWUnixServerSocket *socket) {
 
 int main() {
   SMWUnixServerSocket *socket;
-  SMWUnixServerSocketCreateError error = smw_unix_stream_socket_create("/tmp/sam6", &socket);
+  SMWUnixServerSocketCreateError error = smw_unix_server_socket_create("/tmp/sam6", &socket);
   if (error != SMWUnixServerSocketConnectErrorNone) {
     printf("Error %i %i", error, errno);
     return 0;
   }
 
-  smw_unix_stream_socket_accept_connections(socket, 100, onConnect, onData, onClose);
+  smw_unix_server_socket_accept_connections(socket, 100, onConnect, onData, onClose);
 
   printf("hello\n");
 

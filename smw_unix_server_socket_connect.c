@@ -29,7 +29,7 @@ int handle_data_from_incomming_socket(
   return 0;
 }
 
-SMWUnixServerSocketConnectError smw_unix_stream_socket_accept_connections(
+SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
   SMWUnixServerSocket *socket, 
   int bufferSize,
   void (*connect)(SMWUnixServerSocket *socket), 

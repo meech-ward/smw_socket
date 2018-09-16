@@ -8,7 +8,14 @@ typedef enum {
   SMWUnixServerSocketConnectErrorBadIncommingSocket
 } SMWUnixServerSocketConnectError;
 
-SMWUnixServerSocketConnectError smw_unix_stream_socket_accept_connections(
+SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
+  SMWUnixServerSocket *socket, 
+  int bufferSize,
+  void (*connect)(SMWUnixServerSocket *socket), 
+  void (*data)(SMWUnixServerSocket *socket, char *data), 
+  void (*close)(SMWUnixServerSocket *socket));
+
+  SMWUnixServerSocketConnectError smw_unix_server_socket_accept_connections(
   SMWUnixServerSocket *socket, 
   int bufferSize,
   void (*connect)(SMWUnixServerSocket *socket), 

@@ -11,6 +11,6 @@ typedef enum {
   SMWUnixServerSocketCreateErrorListening
 } SMWUnixServerSocketCreateError;
 
-SMWUnixServerSocketCreateError smw_unix_stream_socket_create(const char *filePath, SMWUnixServerSocket **s);
+SMWUnixServerSocketCreateError smw_unix_server_socket_create(const char *filePath, SMWUnixServerSocket **s);
 
 #endif
