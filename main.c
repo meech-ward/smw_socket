@@ -11,8 +11,7 @@ void onConnect(SMWUnixSocket *socket) {
 void onData(SMWUnixSocket *socket, int dataSize, char *data) {
   printf("Data: %s\n", data);
   // Echo
-  smw_unix_server_socket_send_data(socket, dataSize, data);
-  smw_unix_server_socket_close(socket);
+    smw_unix_server_socket_close(socket);
 }
 
 void onClose(SMWUnixSocket *socket) {
@@ -27,7 +26,11 @@ int main() {
     return 0;
   }
 
-  smw_unix_socket_send_data
+  smw_unix_client_socket_connect(socket);
+  
+  int dataSize = 20;
+  char data[20] =  "hello";
+  smw_unix_socket_send_data(socket, dataSize, data);
 
   // smw_unix_server_socket_accept_connections(socket, 100, onConnect, onData, onClose);
 
@@ -42,7 +45,7 @@ int main() {
 // void onData(SMWUnixSocket *socket, int dataSize, char *data) {
 //   printf("Data: %s\n", data);
 //   // Echo
-//   smw_unix_server_socket_send_data(socket, dataSize, data);
+//   smw_unix_socket_send_data(socket, dataSize, data);
 //   smw_unix_server_socket_close(socket);
 // }
 

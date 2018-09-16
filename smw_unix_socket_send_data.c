@@ -3,9 +3,9 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "smw_unix_server_socket_send_data.h"
+#include "smw_unix_socket_send_data.h"
 
-SMWUnixServerSocketSendDataError smw_unix_server_socket_send_data(
+SMWUnixServerSocketSendDataError smw_unix_socket_send_data(
   SMWUnixSocket *socket, 
   int dataSize,
   char *data) {

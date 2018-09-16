@@ -1,5 +1,5 @@
-#ifndef __smw_unix_server_socket_send_data_h__
-#define __smw_unix_server_socket_send_data_h__
+#ifndef __smw_unix_socket_send_data_h__
+#define __smw_unix_socket_send_data_h__
 
 #include "smw_unix_socket.h"
 
@@ -8,7 +8,7 @@ typedef enum {
   SMWUnixServerSocketSendDataErrorIncomplete
 } SMWUnixServerSocketSendDataError;
 
-SMWUnixServerSocketSendDataError smw_unix_server_socket_send_data(
+SMWUnixServerSocketSendDataError smw_unix_socket_send_data(
   SMWUnixSocket *socket, 
   int dataSsize,
   char *data);
