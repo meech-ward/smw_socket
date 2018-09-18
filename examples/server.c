@@ -18,7 +18,7 @@ void onClose(SMWUnixSocket *socket) {
 
 int main() {
   SMWUnixSocket *socket;
-  char *filePath = "socket_server";
+  char *filePath = "/tmp/socket_server";
   if (smw_unix_server_socket_create(filePath, &socket) != SMWUnixServerSocketConnectErrorNone) {
     printf("Error creating socket");
     return 0;
