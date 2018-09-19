@@ -8,7 +8,8 @@ typedef enum {
   SMWUnixServerSocketCreateErrorCreatingSocket,
   SMWUnixServerSocketCreateErrorBinding,
   SMWUnixServerSocketCreateErrorAllocatingSocket,
-  SMWUnixServerSocketCreateErrorListening
+  SMWUnixServerSocketCreateErrorListening,
+  SMWUnixServerSocketCreateErrorRemoving
 } SMWUnixServerSocketCreateError;
 
 SMWUnixServerSocketCreateError smw_unix_server_socket_create(const char *filePath, SMWUnixSocket **s);
