@@ -12,7 +12,6 @@ int handle_data_from_incomming_socket(
 
   char buffer[bufferSize];
   ssize_t numRead = 0;
-  ssize_t numReadTotal = 0;
   while ((numRead = read(incommingSocket->_fileDescriptor, buffer, bufferSize)) > 0) {
     data(incommingSocket, numRead, buffer);
   }
