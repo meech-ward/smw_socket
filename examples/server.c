@@ -3,17 +3,16 @@
 #include "smw_unix_server.h"
 
 void onConnect(SMWUnixSocket *socket) {
-  printf("Accepted a connection\n");
+  // Accepted a connection
 }
 
 void onData(SMWUnixSocket *socket, int dataSize, char *data) {
-  printf("Data: %s\n", data);
-  // Echo Server
-  smw_unix_socket_send_data(socket, dataSize, data);
+  printf("%s", data);
+  smw_unix_socket_send_data(socket, 13, "Got Your Data");
 }
 
 void onClose(SMWUnixSocket *socket) {
-  printf("Connection Closed\n");
+  // Connection Closed
 }
 
 int main() {
