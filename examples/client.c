@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "smw_unix_server.h"
+#include "smw_socket.h"
 
 void send_input_to_socket(SMWUnixSocket *socket) {
   char data[100];

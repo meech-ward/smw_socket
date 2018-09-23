@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "smw_unix_server.h"
+#include "smw_socket.h"
 
 void onConnect(SMWUnixSocket *socket) {
   // Accepted a connection
