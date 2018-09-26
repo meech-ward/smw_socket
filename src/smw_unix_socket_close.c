@@ -6,7 +6,11 @@
 #include "smw_unix_socket_close.h"
 
 SMWUnixServerSocketCloseError smw_unix_socket_close(SMWUnixSocket *socket) {
-  if (close(socket->_fileDescriptor) == -1) {
+  int closeResult = close(socket->_fileDescriptor);
+
+  smw_unix_socket_free(socket);
+
+  if (closeResult == -1) {
     return SMWUnixServerSocketCloseErrorClosing;
   }
 
