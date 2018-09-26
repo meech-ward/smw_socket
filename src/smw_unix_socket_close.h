@@ -8,6 +8,13 @@ typedef enum {
   SMWUnixServerSocketCloseErrorClosing
 } SMWUnixServerSocketCloseError;
 
+/**
+ * Close and free a SMWUnixServerSocket.
+ * Always use this method to close the socket when you're done using it.
+ *
+ * @param socket A socket pointer that will be freed.
+ * @return SMWUnixServerSocketCloseError
+ */
 SMWUnixServerSocketCloseError smw_unix_socket_close(SMWUnixSocket *socket);
 
 #endif
